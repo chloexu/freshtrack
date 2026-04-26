@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { T } from '../constants/theme';
 import { Item } from '../services/mockApi';
 import { getFreshnessBucket, getFreshnessLabel, BUCKET_CONFIG } from '../constants/freshness';
-import { FreshnessOrb } from './FreshnessOrb';
 import { CheckIcon } from './Icons';
 
 type Props = {
@@ -23,13 +22,14 @@ export function FridgeItem({ item, isExpanded, onToggle, onConsume, onRemove }: 
   function handleConsume() {
     setConsumed(true);
     onConsume();
+    onToggle();
   }
 
   return (
-    <View style={s.wrapper}>
+    <View style={[s.wrapper, { opacity: consumed ? 0.6 : 1 }]}>
       {/* Main row */}
       <TouchableOpacity
-        style={[s.row, { borderLeftColor: color, opacity: consumed ? 0.6 : 1 }]}
+        style={[s.row, { borderLeftColor: color }]}
         onPress={onToggle}
         activeOpacity={0.7}
       >
@@ -47,7 +47,7 @@ export function FridgeItem({ item, isExpanded, onToggle, onConsume, onRemove }: 
           <Text style={[s.pillText, { color }]}>{label}</Text>
         </View>
 
-        <Text style={[s.days, { color }]}>{label === 'today' || label === 'tomorrow' ? '' : label}</Text>
+        <Text style={[s.days, { color }]}>{label}</Text>
       </TouchableOpacity>
 
       {/* Inline action row */}
@@ -59,7 +59,7 @@ export function FridgeItem({ item, isExpanded, onToggle, onConsume, onRemove }: 
           <TouchableOpacity style={[s.actionBtn, s.actionBtnMid, { backgroundColor: T.creamDark }]} onPress={() => {}}>
             <Text style={[s.actionText, { color: T.inkMid }]}>✎ Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[s.actionBtn, { backgroundColor: T.coralLight, borderBottomRightRadius: 9 }]} onPress={onRemove}>
+          <TouchableOpacity style={[s.actionBtn, { backgroundColor: T.coralLight }]} onPress={onRemove}>
             <Text style={[s.actionText, { color: T.coral }]}>✕ Remove</Text>
           </TouchableOpacity>
         </View>
