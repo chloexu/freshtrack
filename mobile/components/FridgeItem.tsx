@@ -16,8 +16,8 @@ type Props = {
 export function FridgeItem({ item, isExpanded, onToggle, onConsume, onRemove }: Props) {
   const [consumed, setConsumed] = useState(false);
   const bucket = getFreshnessBucket(item.predicted_expiry);
-  const label = getFreshnessLabel(item.predicted_expiry);
-  const { color, bg } = BUCKET_CONFIG[bucket];
+  const daysLabel = getFreshnessLabel(item.predicted_expiry);
+  const { label: bucketLabel, color, bg } = BUCKET_CONFIG[bucket];
 
   function handleConsume() {
     setConsumed(true);
@@ -44,10 +44,10 @@ export function FridgeItem({ item, isExpanded, onToggle, onConsume, onRemove }: 
         </View>
 
         <View style={[s.pill, { backgroundColor: bg }]}>
-          <Text style={[s.pillText, { color }]}>{label}</Text>
+          <Text style={[s.pillText, { color }]}>{bucketLabel}</Text>
         </View>
 
-        <Text style={[s.days, { color }]}>{label}</Text>
+        <Text style={[s.days, { color }]}>{daysLabel}</Text>
       </TouchableOpacity>
 
       {/* Inline action row */}
