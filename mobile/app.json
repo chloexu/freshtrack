@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "FreshTrack",
+    "slug": "freshtrack",
+    "scheme": "freshtrack",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "platforms": ["ios"],
+    "ios": {
+      "supportsTablet": false
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
