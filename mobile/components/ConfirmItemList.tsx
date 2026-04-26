@@ -29,7 +29,7 @@ export function ConfirmItemList({ items: initial, parseNotes, onConfirm, onCance
   );
   const [expandedKey, setExpandedKey] = useState<string | null>(null);
 
-  function update(key: string, field: keyof ParsedItem, value: string | number) {
+  function update(key: string, field: keyof ParsedItem, value: string | number | null) {
     setItems(prev => prev.map(item => item._key === key ? { ...item, [field]: value } : item));
   }
 
@@ -68,20 +68,22 @@ export function ConfirmItemList({ items: initial, parseNotes, onConfirm, onCance
                 <Text style={s.lowBadge}>Low confidence — tap to confirm</Text>
               )}
 
-              <TouchableOpacity style={s.cardRow} onPress={() => setExpandedKey(isExpanded ? null : item._key)} activeOpacity={0.7}>
-                <FreshnessOrb bucket={bucket} />
-                <View style={s.cardInfo}>
-                  <Text style={s.cardName}>{item.name}</Text>
-                  {item.quantity && <Text style={s.cardQty}>{item.quantity}</Text>}
-                </View>
-                <View style={[s.daysPill, { backgroundColor: bg }]}>
-                  <Text style={[s.daysPillText, { color }]}>~{item.predicted_expiry_days}d</Text>
-                </View>
-                <ChevronRightIcon size={14} color={T.inkLight} />
+              <View style={s.cardRowWrap}>
+                <TouchableOpacity style={s.cardRow} onPress={() => setExpandedKey(isExpanded ? null : item._key)} activeOpacity={0.7}>
+                  <FreshnessOrb bucket={bucket} />
+                  <View style={s.cardInfo}>
+                    <Text style={s.cardName}>{item.name}</Text>
+                    {item.quantity && <Text style={s.cardQty}>{item.quantity}</Text>}
+                  </View>
+                  <View style={[s.daysPill, { backgroundColor: bg }]}>
+                    <Text style={[s.daysPillText, { color }]}>~{item.predicted_expiry_days}d</Text>
+                  </View>
+                  <ChevronRightIcon size={14} color={T.inkLight} />
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => remove(item._key)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
                   <XIcon size={12} color={T.coral} />
                 </TouchableOpacity>
-              </TouchableOpacity>
+              </View>
 
               {isExpanded && (
                 <View style={s.editRow}>
@@ -95,7 +97,7 @@ export function ConfirmItemList({ items: initial, parseNotes, onConfirm, onCance
                   <TextInput
                     style={[s.editInput, s.editQty]}
                     value={item.quantity ?? ''}
-                    onChangeText={v => update(item._key, 'quantity', v)}
+                    onChangeText={v => update(item._key, 'quantity', v || null)}
                     placeholder="Qty"
                     placeholderTextColor={T.inkLight}
                   />
@@ -140,7 +142,8 @@ const s = StyleSheet.create({
   },
   cardFirst: { borderTopLeftRadius: 12, borderTopRightRadius: 12 },
   cardLast: { borderBottomLeftRadius: 12, borderBottomRightRadius: 12, marginBottom: 12 },
-  cardRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  cardRowWrap: { flexDirection: 'row', alignItems: 'center' },
+  cardRow: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
   cardInfo: { flex: 1 },
   cardName: { fontSize: 15, fontWeight: '500', color: T.ink, fontFamily: 'DMSans_500Medium' },
   cardQty: { fontSize: 12, color: T.inkLight, fontFamily: 'DMSans_400Regular' },

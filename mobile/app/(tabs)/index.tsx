@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import {
   View, Text, SectionList, StyleSheet, TextInput,
   TouchableOpacity, Animated, RefreshControl,
@@ -31,6 +31,10 @@ export default function FridgeScreen() {
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useFocusEffect(useCallback(() => { loadItems(); }, []));
+
+  useEffect(() => {
+    return () => { if (toastTimer.current) clearTimeout(toastTimer.current); };
+  }, []);
 
   async function loadItems() {
     const data = await getItems();
