@@ -23,6 +23,10 @@ The second unlock: plain English reminder preferences. Type "remind me about fru
 - Consumed items removed from list in one tap
 - Zero manual text entry required to track a full grocery run
 
+## Design
+
+![FreshTrack screens — Add Groceries, My Fridge, Reminders](docs/assets/screens-preview.png)
+
 ## Project Status
 
 **Phase 0 (current):** iOS prototype with mock data — fully navigable, no backend required.
