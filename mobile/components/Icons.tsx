@@ -79,7 +79,7 @@ export function PlusIcon({ size = 16, color = T.green700 }: Props) {
 export function SparkleIcon({ size = 16, color = T.white }: Props) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill={color}>
-      <Polygon points="12 2 14.4 9.4 22 9.4 15.8 13.9 18.2 21.3 12 17 5.8 21.3 8.2 13.9 2 9.4 9.6 9.4" />
+      <Polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26" />
     </Svg>
   );
 }
