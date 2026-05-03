@@ -23,6 +23,6 @@ class Item(Base):
     quantity = Column(Text, nullable=True)
     purchase_date = Column(Date, nullable=False)
     predicted_expiry = Column(Date, nullable=False)
-    status = Column(String, nullable=False, default="in_fridge")
+    status = Column(String, nullable=False, default="in_fridge", server_default="in_fridge")
     status_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
