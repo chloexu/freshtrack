@@ -6,6 +6,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { T } from '../constants/theme';
+import { register, login, ApiError } from '../services/api';
 
 type Step = 'auth' | 'meal_times';
 type Mode = 'register' | 'login';
@@ -18,14 +19,33 @@ export default function Onboarding() {
   const [password, setPassword] = useState('');
   const [lunchTime, setLunchTime] = useState('12:00');
   const [dinnerTime, setDinnerTime] = useState('18:30');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleAuth() {
-    // Mock: skip validation, go to step 2
-    setStep('meal_times');
+  async function handleAuth() {
+    setError(null);
+    setLoading(true);
+    try {
+      if (mode === 'register') {
+        await register(email, password);
+      } else {
+        await login(email, password);
+      }
+      setStep('meal_times');
+    } catch (e) {
+      if (e instanceof ApiError) {
+        if (e.status === 409) setError('An account with this email already exists.');
+        else if (e.status === 401) setError('Incorrect email or password.');
+        else setError('Something went wrong. Check your connection.');
+      } else {
+        setError("Couldn't connect. Make sure the backend is running.");
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   function handleGetStarted() {
-    // Mock: skip saving, navigate to tabs
     router.replace('/(tabs)');
   }
 
@@ -86,13 +106,20 @@ export default function Onboarding() {
           secureTextEntry
         />
 
-        <TouchableOpacity style={s.btn} onPress={handleAuth} activeOpacity={0.8}>
+        {error && <Text style={s.error}>{error}</Text>}
+
+        <TouchableOpacity
+          style={[s.btn, loading && s.btnDisabled]}
+          onPress={handleAuth}
+          activeOpacity={0.8}
+          disabled={loading}
+        >
           <Text style={s.btnText}>
-            {mode === 'register' ? 'Create account' : 'Sign in'}
+            {loading ? 'Please wait…' : mode === 'register' ? 'Create account' : 'Sign in'}
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => setMode(mode === 'register' ? 'login' : 'register')}>
+        <TouchableOpacity onPress={() => { setMode(mode === 'register' ? 'login' : 'register'); setError(null); }}>
           <Text style={s.toggle}>
             {mode === 'register'
               ? 'Already have an account? Sign in'
@@ -122,6 +149,7 @@ const s = StyleSheet.create({
     fontFamily: 'DMSans_400Regular',
     marginBottom: 12,
   },
+  error: { fontSize: 13, color: T.coral, fontFamily: 'DMSans_400Regular', marginBottom: 8 },
   btn: {
     backgroundColor: T.green700,
     borderRadius: 14,
@@ -129,6 +157,7 @@ const s = StyleSheet.create({
     alignItems: 'center',
     marginTop: 8,
   },
+  btnDisabled: { opacity: 0.6 },
   btnText: { color: T.white, fontSize: 16, fontWeight: '600', fontFamily: 'DMSans_600SemiBold' },
   toggle: { textAlign: 'center', color: T.inkLight, fontFamily: 'DMSans_400Regular', fontSize: 13, marginTop: 16 },
 });
