@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import Optional
+from typing import Optional, Literal
 from uuid import UUID
 from pydantic import BaseModel, ConfigDict
 
@@ -37,7 +37,7 @@ class ItemUpdate(BaseModel):
     name: Optional[str] = None
     quantity: Optional[str] = None
     predicted_expiry: Optional[date] = None
-    status: Optional[str] = None
+    status: Optional[Literal["in_fridge", "consumed", "discarded"]] = None
 
 
 class ItemResponse(BaseModel):

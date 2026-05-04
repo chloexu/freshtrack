@@ -7,7 +7,7 @@ def _headers(token):
     return {"Authorization": f"Bearer {token}"}
 
 
-def _item_payload(name="Apples", qty="6", days_from_now=7):
+def _item_payload(name="Apples", qty="6"):
     return {
         "items": [{
             "name": name,
