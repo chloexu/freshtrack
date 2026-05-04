@@ -6,7 +6,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useFocusEffect } from 'expo-router';
 import { T } from '../../constants/theme';
-import { getItems, updateItem, deleteItem, Item } from '../../services/mockApi';
+import { getItems, updateItem, deleteItem, Item, ApiError } from '../../services/api';
 import { getFreshnessBucket, BUCKET_CONFIG, FreshnessBucket } from '../../constants/freshness';
 import { FridgeItem } from '../../components/FridgeItem';
 import { SearchIcon, PlusIcon } from '../../components/Icons';
@@ -37,8 +37,14 @@ export default function FridgeScreen() {
   }, []);
 
   async function loadItems() {
-    const data = await getItems();
-    setItems(data);
+    try {
+      const data = await getItems();
+      setItems(data);
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 401) {
+        router.replace('/onboarding');
+      }
+    }
   }
 
   function showToast(message: string) {
