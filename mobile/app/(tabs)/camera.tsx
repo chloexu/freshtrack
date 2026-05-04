@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { T } from '../../constants/theme';
-import { parseReceipt, createItems, ParsedItem } from '../../services/mockApi';
+import { parseReceipt, ParsedItem } from '../../services/mockApi';
+import { createItems, ApiError } from '../../services/api';
 import { ConfirmItemList } from '../../components/ConfirmItemList';
 import { CameraIcon, SparkleIcon } from '../../components/Icons';
 
@@ -29,16 +30,22 @@ export default function AddScreen() {
 
   async function handleConfirm(items: ParsedItem[]) {
     const today = new Date().toISOString().split('T')[0];
-    await createItems(
-      items.map(item => ({
-        name: item.name,
-        quantity: item.quantity,
-        purchase_date: today,
-        predicted_expiry: daysToDate(item.predicted_expiry_days),
-      }))
-    );
-    setState('capture');
-    router.push('/(tabs)');
+    try {
+      await createItems(
+        items.map(item => ({
+          name: item.name,
+          quantity: item.quantity,
+          purchase_date: today,
+          predicted_expiry: daysToDate(item.predicted_expiry_days),
+        }))
+      );
+      setState('capture');
+      router.push('/(tabs)');
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 401) {
+        router.replace('/onboarding');
+      }
+    }
   }
 
   if (state === 'confirm') {
