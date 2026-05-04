@@ -1,0 +1,100 @@
+<h2>Which design direction feels right for FreshTrack?</h2>
+<p class="subtitle">Showing the Fridge home screen in 3 different visual styles</p>
+
+<div class="cards">
+
+  <!-- Option A: Clean & Minimal -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f9fafb; padding:16px; font-family:-apple-system,sans-serif;">
+      <div style="background:#fff; border-radius:12px; padding:12px 14px; margin-bottom:8px; box-shadow:0 1px 4px rgba(0,0,0,0.07);">
+        <div style="font-size:11px; font-weight:700; color:#22C55E; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; padding-left:6px; border-left:3px solid #22C55E;">Use today</div>
+        <div style="display:flex; align-items:center; padding:10px 0; border-bottom:1px solid #f3f4f6;">
+          <div style="flex:1">
+            <div style="font-size:14px; font-weight:500; color:#111;">Chicken breast</div>
+            <div style="font-size:12px; color:#9ca3af;">1 lb</div>
+          </div>
+          <div style="font-size:12px; color:#6b7280; margin-right:10px;">today</div>
+          <div style="background:#22C55E; color:#fff; width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;">✓</div>
+        </div>
+      </div>
+      <div style="background:#fff; border-radius:12px; padding:12px 14px; box-shadow:0 1px 4px rgba(0,0,0,0.07);">
+        <div style="font-size:11px; font-weight:700; color:#F59E0B; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; padding-left:6px; border-left:3px solid #F59E0B;">Use soon</div>
+        <div style="display:flex; align-items:center; padding:10px 0;">
+          <div style="flex:1">
+            <div style="font-size:14px; font-weight:500; color:#111;">Strawberries</div>
+            <div style="font-size:12px; color:#9ca3af;">1 pint</div>
+          </div>
+          <div style="font-size:12px; color:#6b7280; margin-right:10px;">3 days</div>
+          <div style="background:#22C55E; color:#fff; width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;">✓</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Clean & Minimal</h3>
+      <p>White cards, light gray background. Freshness color only on section headers. Feels like a notes app — calm, frictionless.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Dark & Premium -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111827; padding:16px; font-family:-apple-system,sans-serif;">
+      <div style="margin-bottom:8px;">
+        <div style="font-size:11px; font-weight:700; color:#EF4444; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Use today</div>
+        <div style="background:#1f2937; border-radius:12px; padding:12px 14px; display:flex; align-items:center; margin-bottom:6px; border-left:3px solid #EF4444;">
+          <div style="flex:1">
+            <div style="font-size:14px; font-weight:500; color:#f9fafb;">Chicken breast</div>
+            <div style="font-size:12px; color:#6b7280;">1 lb &bull; today</div>
+          </div>
+          <div style="background:#EF4444; color:#fff; width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;">✓</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px; font-weight:700; color:#F59E0B; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Use soon</div>
+        <div style="background:#1f2937; border-radius:12px; padding:12px 14px; display:flex; align-items:center; border-left:3px solid #F59E0B;">
+          <div style="flex:1">
+            <div style="font-size:14px; font-weight:500; color:#f9fafb;">Strawberries</div>
+            <div style="font-size:12px; color:#6b7280;">1 pint &bull; 3 days</div>
+          </div>
+          <div style="background:#22C55E; color:#fff; width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;">✓</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Dark & Premium</h3>
+      <p>Dark background, colored left borders per freshness bucket. Urgent items feel more alarming. Bold, modern look.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Warm & Earthy -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fdf6ed; padding:16px; font-family:-apple-system,sans-serif;">
+      <div style="background:#fff8f0; border-radius:12px; padding:12px 14px; margin-bottom:8px; border:1px solid #fde8cc;">
+        <div style="font-size:11px; font-weight:700; color:#d97706; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Use today</div>
+        <div style="display:flex; align-items:center; padding:8px 0; border-bottom:1px solid #fde8cc;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#ef4444; margin-right:10px;"></div>
+          <div style="flex:1">
+            <div style="font-size:14px; font-weight:500; color:#292524;">Chicken breast</div>
+            <div style="font-size:12px; color:#a8a29e;">1 lb</div>
+          </div>
+          <div style="font-size:11px; background:#fef2f2; color:#ef4444; padding:3px 8px; border-radius:20px; font-weight:600;">today</div>
+        </div>
+      </div>
+      <div style="background:#fff8f0; border-radius:12px; padding:12px 14px; border:1px solid #fde8cc;">
+        <div style="font-size:11px; font-weight:700; color:#d97706; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Use soon</div>
+        <div style="display:flex; align-items:center; padding:8px 0;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#f59e0b; margin-right:10px;"></div>
+          <div style="flex:1">
+            <div style="font-size:14px; font-weight:500; color:#292524;">Strawberries</div>
+            <div style="font-size:12px; color:#a8a29e;">1 pint</div>
+          </div>
+          <div style="font-size:11px; background:#fffbeb; color:#d97706; padding:3px 8px; border-radius:20px; font-weight:600;">3 days</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Warm & Natural</h3>
+      <p>Cream/amber tones, pill badges for expiry, dot indicators. Feels food-friendly and approachable, like a kitchen app.</p>
+    </div>
+  </div>
+
+</div>

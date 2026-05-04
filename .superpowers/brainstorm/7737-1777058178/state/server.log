@@ -1,0 +1,4 @@
+{"type":"server-started","port":51911,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:51911","screen_dir":"/Users/chloexu/Chloe/code/freshtrack/.superpowers/brainstorm/7737-1777058178/content","state_dir":"/Users/chloexu/Chloe/code/freshtrack/.superpowers/brainstorm/7737-1777058178/state"}
+{"type":"screen-added","file":"/Users/chloexu/Chloe/code/freshtrack/.superpowers/brainstorm/7737-1777058178/content/design-direction.html"}
+{"type":"screen-added","file":"/Users/chloexu/Chloe/code/freshtrack/.superpowers/brainstorm/7737-1777058178/content/waiting-1.html"}
+{"type":"server-stopped","reason":"idle timeout"}

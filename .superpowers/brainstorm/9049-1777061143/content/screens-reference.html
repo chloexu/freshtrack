@@ -1,0 +1,101 @@
+<h2>FreshTrack — Prototype Design (from screens.jsx)</h2>
+<p class="subtitle">Confirmed tokens · component patterns · 3 screens to build</p>
+
+<div style="display:flex; gap:32px; flex-wrap:wrap; justify-content:center; margin-top:16px; font-family:'DM Sans',sans-serif;">
+
+  <!-- Color tokens -->
+  <div style="width:260px;">
+    <div style="font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">T — Color Tokens</div>
+    <div style="display:flex; flex-direction:column; gap:4px; font-size:12px;">
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#F7F5F0;border:1px solid #ddd;"></div><span style="color:#555;">cream <span style="color:#aaa;">#F7F5F0</span> — bg</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#162B1E;"></div><span style="color:#555;">green900 <span style="color:#aaa;">#162B1E</span> — camera, CTA</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#2A5238;"></div><span style="color:#555;">green700 <span style="color:#aaa;">#2A5238</span> — primary btn, active tab</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#C94040;"></div><span style="color:#555;">coral <span style="color:#aaa;">#C94040</span> — urgent (1–2d)</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#D97B2A;"></div><span style="color:#555;">amber <span style="color:#aaa;">#D97B2A</span> — soon (3–6d)</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#6AA87E;"></div><span style="color:#555;">sage <span style="color:#aaa;">#6AA87E</span> — fresh (7d+)</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#1A1F1C;"></div><span style="color:#555;">ink <span style="color:#aaa;">#1A1F1C</span> — primary text</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#8A9690;border:1px solid #ddd;"></div><span style="color:#555;">inkLight <span style="color:#aaa;">#8A9690</span> — icons, meta</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><div style="width:20px;height:20px;border-radius:4px;background:#DDD8CF;"></div><span style="color:#555;">border <span style="color:#DDD8CF;">#DDD8CF</span></span></div>
+    </div>
+
+    <div style="margin-top:16px; font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Fonts</div>
+    <div style="font-size:12px; color:#555; line-height:1.8;">
+      <strong>Plus Jakarta Sans 700</strong> — screen headers<br>
+      <strong>DM Sans</strong> — all body, labels, buttons
+    </div>
+  </div>
+
+  <!-- 3 screens -->
+  <div style="width:260px;">
+    <div style="font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Screens to build</div>
+
+    <!-- Onboarding -->
+    <div style="background:#F7F5F0; border-radius:12px; padding:14px; margin-bottom:10px; border:1px solid #DDD8CF;">
+      <div style="font-size:12px; font-weight:700; color:#2A5238; margin-bottom:6px;">1 — Onboarding</div>
+      <div style="font-size:11px; color:#555; line-height:1.6;">
+        Step 1: Email + password → tap "Create account" (mock: just navigate)<br>
+        Step 2: Lunch + dinner time → "Get started" → tabs<br>
+        Style: cream bg, green700 CTA button, DDD8CF border inputs
+      </div>
+    </div>
+
+    <!-- Fridge Home -->
+    <div style="background:#F7F5F0; border-radius:12px; padding:14px; margin-bottom:10px; border:1px solid #DDD8CF;">
+      <div style="font-size:12px; font-weight:700; color:#2A5238; margin-bottom:6px;">2 — Fridge Home</div>
+      <div style="font-size:11px; color:#555; line-height:1.6;">
+        Header: "My Fridge" (Plus Jakarta Sans) + item count + "+ Add" button<br>
+        Search bar (white, border)<br>
+        3 groups: Use Today / Use Soon / Still Fresh<br>
+        Item row: white card, 3px left colored border, freshness orb, pill badge, Nd count<br>
+        Tap row → inline actions: "✓ Used it" / "✎ Edit" / "✕ Remove"<br>
+        "Used it" → strikethrough + check → toast (green900, spring anim)<br>
+        Tab bar: Fridge · Add · Reminders (active dot indicator)
+      </div>
+    </div>
+
+    <!-- Add / Camera -->
+    <div style="background:#F7F5F0; border-radius:12px; padding:14px; border:1px solid #DDD8CF;">
+      <div style="font-size:12px; font-weight:700; color:#2A5238; margin-bottom:6px;">3 — Add Groceries</div>
+      <div style="font-size:11px; color:#555; line-height:1.6;">
+        Camera zone: green900 bg, corner brackets, radial gradient<br>
+        "Analyze Photo" button (green700 + sparkle icon)<br>
+        Mock: tap Analyze → show pre-canned detected items list<br>
+        Items: white cards, 3px left border, ~Nd pill, chevron<br>
+        Bottom CTA: "Save N Items to Fridge →" (green900)<br>
+        Tab bar active: Add
+      </div>
+    </div>
+  </div>
+
+  <!-- Mock service layer -->
+  <div style="width:260px;">
+    <div style="font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">mockApi.ts — data</div>
+    <div style="background:#F7F5F0; border-radius:12px; padding:14px; border:1px solid #DDD8CF; font-size:11px; color:#555; line-height:1.8;">
+      <strong>8 mock items across 3 buckets:</strong><br>
+      Use Today (1–2d): Chicken Breast, Salmon<br>
+      Use Soon (3–6d): Strawberries, Spinach, Greek Yogurt<br>
+      Still Fresh (7d+): Mango, Cheddar, Whole Milk<br><br>
+      <strong>Mock parse result (3 items):</strong><br>
+      Salmon fillet · 2d · high confidence<br>
+      Mixed greens · 5d · low confidence<br>
+      Whole milk · 10d · high confidence<br><br>
+      <strong>Functions (same signatures as api.ts):</strong><br>
+      getItems() → Promise&lt;Item[]&gt;<br>
+      updateItem(id, patch) → Promise&lt;Item&gt;<br>
+      deleteItem(id) → Promise&lt;void&gt;<br>
+      parseReceipt(base64) → Promise&lt;ParseResult&gt;<br>
+      createItems(items[]) → Promise&lt;Item[]&gt;
+    </div>
+
+    <div style="margin-top:12px; font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Interactive flows</div>
+    <div style="background:#F7F5F0; border-radius:12px; padding:14px; border:1px solid #DDD8CF; font-size:11px; color:#555; line-height:1.8;">
+      Onboarding → Get started → Fridge tab<br>
+      Tap ✓ Used it → item strikethrough + toast<br>
+      Tap row → expand/collapse actions<br>
+      ✕ Remove → item disappears<br>
+      Add tab → tap Analyze → mock items appear<br>
+      Save to Fridge → items added, navigate to Fridge
+    </div>
+  </div>
+
+</div>
