@@ -14,7 +14,13 @@
     },
     "plugins": [
       "expo-router",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow FreshTrack to access your camera to take photos of groceries."
+        }
+      ]
     ]
   }
 }
