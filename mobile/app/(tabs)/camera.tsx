@@ -64,10 +64,15 @@ export default function AddScreen() {
 
   async function handleAnalyze() {
     setState('loading');
-    const result = await parseReceipt('mock');
-    setParsedItems(result.items);
-    setParseNotes(result.parse_notes);
-    setState('confirm');
+    try {
+      const result = await parseReceipt('mock');
+      setParsedItems(result.items);
+      setParseNotes(result.parse_notes);
+      setState('confirm');
+    } catch {
+      setState('capture');
+      setCaptureError("Couldn't analyze photo — try again");
+    }
   }
 
   async function handleConfirm(items: ParsedItem[]) {
