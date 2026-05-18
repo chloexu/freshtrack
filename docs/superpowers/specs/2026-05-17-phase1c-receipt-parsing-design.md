@@ -40,9 +40,9 @@ POST /parse/receipt
 ```
 
 **Flow:**
-1. Receive `image_base64`
+1. Receive `image_base64` — return 400 immediately if empty string
 2. Build OpenAI vision message: image as `data:image/jpeg;base64,<image_base64>`
-3. Call `gpt-4o` with a system prompt instructing structured JSON output
+3. Call `gpt-4o` with `response_format={"type": "json_object"}` and the system prompt below
 4. Parse and validate JSON response with Pydantic
 5. Return response
 
@@ -100,8 +100,9 @@ app.include_router(parse.router, prefix="/parse", tags=["parse"])
 
 Add to `requirements.txt`:
 ```
-openai==1.30.5
+openai>=1.30.0
 ```
+Verify the latest stable version before installing (`pip index versions openai`).
 
 Add to `.env.example`:
 ```
@@ -142,28 +143,30 @@ export type ParseReceiptResponse = {
 };
 
 export async function parseReceipt(photoUri: string): Promise<ParseReceiptResponse> {
-  // 1. Resize to max 1024px long edge
+  // 1. Get dimensions to constrain the long edge (see Image Sizing section)
+  const info = await ImageManipulator.manipulateAsync(photoUri, [], {});
+  const isPortrait = info.height > info.width;
+  const resize = isPortrait ? { height: 1024 } : { width: 1024 };
+
+  // 2. Resize and export as base64 JPEG
   const manipulated = await ImageManipulator.manipulateAsync(
     photoUri,
-    [{ resize: { width: 1024 } }],  // expo-image-manipulator preserves aspect ratio
+    [{ resize }],
     { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG, base64: true }
   );
   const image_base64 = manipulated.base64!;
 
-  // 2. POST to backend
+  // 3. POST to backend
   return request<ParseReceiptResponse>('/parse/receipt', {
     method: 'POST',
     body: JSON.stringify({ image_base64 }),
   });
 }
-```
-
-Note: `resize: { width: 1024 }` constrains the long edge to 1024px — if the image is portrait, pass `height: 1024` instead. To handle both orientations, compare dimensions and resize accordingly.
 
 ### `mobile/app/(tabs)/camera.tsx`
 
 - Remove: `import { parseReceipt, ParsedItem } from '../../services/mockApi';`
-- Add: `import { parseReceipt, ParsedItem, ApiError } from '../../services/api';`
+- Extend existing api.ts import (line 8) to include `parseReceipt` and `ParsedItem` — `ApiError` is already imported there, do not duplicate it
 - Change: `parseReceipt('mock')` → `parseReceipt(photoUri!)`
 
 ### `mobile/services/mockApi.ts`
@@ -171,18 +174,6 @@ Note: `resize: { width: 1024 }` constrains the long edge to 1024px — if the im
 - Remove `ParsedItem` and `ParseReceiptResponse` type definitions (now in `api.ts`)
 - Import them from `api.ts` for use in the mock `parseReceipt` stub (tests still use mock)
 - Keep mock `parseReceipt` function for test isolation
-
----
-
-## Image Sizing
-
-`expo-image-manipulator` with `resize: { width: 1024 }` constrains width; height scales proportionally. For portrait receipts, we want to constrain the long edge:
-
-```typescript
-const info = await ImageManipulator.manipulateAsync(photoUri, [], {});
-const isPortrait = info.height > info.width;
-const resize = isPortrait ? { height: 1024 } : { width: 1024 };
-```
 
 ---
 
