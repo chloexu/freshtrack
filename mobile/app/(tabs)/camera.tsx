@@ -4,8 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { T } from '../../constants/theme';
-import { parseReceipt, ParsedItem } from '../../services/mockApi';
-import { createItems, ApiError } from '../../services/api';
+import { createItems, parseReceipt, ParsedItem, ApiError } from '../../services/api';
 import { ConfirmItemList } from '../../components/ConfirmItemList';
 import { CameraIcon, SparkleIcon } from '../../components/Icons';
 
@@ -65,7 +64,7 @@ export default function AddScreen() {
   async function handleAnalyze() {
     setState('loading');
     try {
-      const result = await parseReceipt('mock');
+      const result = await parseReceipt(photoUri!);
       setParsedItems(result.items);
       setParseNotes(result.parse_notes);
       setState('confirm');
