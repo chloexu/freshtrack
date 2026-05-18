@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 import { API_BASE_URL } from '../constants/config';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 const TOKEN_KEY = 'auth_token';
 
@@ -107,5 +108,38 @@ export async function createItems(items: ItemCreate[]): Promise<Item[]> {
   return request<Item[]>('/items', {
     method: 'POST',
     body: JSON.stringify({ items }),
+  });
+}
+
+// --- Receipt Parsing ---
+
+export type ParsedItem = {
+  name: string;
+  quantity: string | null;
+  predicted_expiry_days: number;
+  confidence: 'high' | 'medium' | 'low';
+};
+
+export type ParseReceiptResponse = {
+  items: ParsedItem[];
+  parse_notes: string | null;
+};
+
+export async function parseReceipt(photoUri: string): Promise<ParseReceiptResponse> {
+  // Constrain the long edge to 1024px to minimise upload size and token cost
+  const info = await ImageManipulator.manipulateAsync(photoUri, [], {});
+  const isPortrait = info.height > info.width;
+  const resize = isPortrait ? { height: 1024 } : { width: 1024 };
+
+  const manipulated = await ImageManipulator.manipulateAsync(
+    photoUri,
+    [{ resize }],
+    { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG, base64: true },
+  );
+  const image_base64 = manipulated.base64!;
+
+  return request<ParseReceiptResponse>('/parse/receipt', {
+    method: 'POST',
+    body: JSON.stringify({ image_base64 }),
   });
 }
