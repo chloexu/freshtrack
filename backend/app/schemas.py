@@ -52,3 +52,21 @@ class ItemResponse(BaseModel):
     status: str
     status_at: Optional[datetime] = None
     created_at: datetime
+
+
+# --- Receipt Parsing ---
+
+class ParseReceiptRequest(BaseModel):
+    image_base64: str
+
+
+class ParsedItem(BaseModel):
+    name: str
+    quantity: Optional[str] = None
+    predicted_expiry_days: int
+    confidence: Literal["high", "medium", "low"]
+
+
+class ParseReceiptResponse(BaseModel):
+    items: list[ParsedItem]
+    parse_notes: Optional[str] = None
