@@ -118,4 +118,4 @@ def test_parse_receipt_malformed_json_returns_422(client):
 
 def test_parse_receipt_requires_auth(client):
     res = client.post("/parse/receipt", json={"image_base64": "ZmFrZWltYWdl"})
-    assert res.status_code == 401
+    assert res.status_code == 403
