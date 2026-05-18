@@ -32,6 +32,8 @@ def parse_receipt(
 ):
     if not body.image_base64:
         raise HTTPException(status_code=400, detail="image_base64 is required")
+    if len(body.image_base64) > 500_000:
+        raise HTTPException(status_code=413, detail="Image too large — resize before uploading")
 
     try:
         response = client.chat.completions.create(

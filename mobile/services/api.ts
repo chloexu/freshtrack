@@ -136,7 +136,8 @@ export async function parseReceipt(photoUri: string): Promise<ParseReceiptRespon
     [{ resize }],
     { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG, base64: true },
   );
-  const image_base64 = manipulated.base64!;
+  const image_base64 = manipulated.base64;
+  if (!image_base64) throw new Error('Image encoding failed — try again');
 
   return request<ParseReceiptResponse>('/parse/receipt', {
     method: 'POST',
