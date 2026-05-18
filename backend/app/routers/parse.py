@@ -5,7 +5,7 @@ from openai import APIError, OpenAI, RateLimitError
 
 from app.auth import get_current_user
 from app.models import User
-from app.schemas import ParsedItem, ParseReceiptRequest, ParseReceiptResponse
+from app.schemas import ParseReceiptRequest, ParseReceiptResponse
 
 router = APIRouter()
 client = OpenAI()  # reads OPENAI_API_KEY from environment
@@ -21,7 +21,7 @@ For each item return:
 Return JSON only — no prose:
 {
   "items": [...],
-  "parse_notes": "optional note about parse quality, or null"
+  "parse_notes": null
 }"""
 
 

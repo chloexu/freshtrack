@@ -119,3 +119,19 @@ def test_parse_receipt_malformed_json_returns_422(client):
 def test_parse_receipt_requires_auth(client):
     res = client.post("/parse/receipt", json={"image_base64": "ZmFrZWltYWdl"})
     assert res.status_code == 403
+
+
+def test_parse_receipt_invalid_schema_returns_422(client):
+    """Valid JSON but missing required fields — Pydantic validation should fail."""
+    token = _register(client, email="schema@test.com")
+    mock_resp = _mock_openai_response(
+        json.dumps({"items": [{"name": "Milk"}], "parse_notes": None})
+    )
+
+    with patch("app.routers.parse.client.chat.completions.create", return_value=mock_resp):
+        res = client.post(
+            "/parse/receipt",
+            json={"image_base64": "ZmFrZWltYWdl"},
+            headers=_headers(token),
+        )
+    assert res.status_code == 422
