@@ -1,3 +1,5 @@
+import type { ParsedItem, ParseReceiptResponse } from './api';
+
 export type Item = {
   id: string;
   name: string;
@@ -16,17 +18,7 @@ export type ItemCreate = {
   predicted_expiry: string;
 };
 
-export type ParsedItem = {
-  name: string;
-  quantity: string | null;
-  predicted_expiry_days: number;
-  confidence: 'high' | 'medium' | 'low';
-};
-
-export type ParseReceiptResponse = {
-  items: ParsedItem[];
-  parse_notes: string | null;
-};
+export type { ParsedItem, ParseReceiptResponse } from './api';
 
 function daysFromNow(days: number): string {
   return new Date(Date.now() + days * 86400000).toISOString().split('T')[0];
